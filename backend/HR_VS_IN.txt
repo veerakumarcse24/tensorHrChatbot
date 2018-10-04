@@ -1,0 +1,82 @@
+Interview Based (HR - New Resource)
+
+IN - There is any opening in your company
+HR - Yes, there are few opening in ....
+
+HR - Are you experienced or fresher
+IN - Experienced
+
+HR - what role did you play in your project and company
+IN - Developer
+
+HR - We have opening in PHP as senior developer. Are U ok with that
+IN - Yes
+
+HR - How many years do you have experience
+IN - 5 years
+
+HR - Tell me something about your project and role on that 
+IN - blah..blah....blah
+
+HR - How much salary are you taking?
+IN - 40,000
+
+HR - Why do you want to leave that job?
+IN - lah..blah....blah
+
+HR - How much do u expert for your position in our company
+IN - 50,000
+
+HR - Are you ready to attend technical round on (date)
+IN - ok, sure
+IN - no, i cant. I have other commitments
+
+HR - Tell your comfort date
+IN - some(date)
+
+HR - we will arrange you on that day.
+     send your resume to this ID  to sent the invitation letter 
+IN - ok sure.
+
+--------------------
+
+HR - Tell me about yourself
+IN - something (course)
+
+HR - In which domain are you intrest to work
+IN - .NET
+
+HR - Sorry, we dont't have opening in .Net
+     Currently we have opening in Android
+IN - ok
+
+HR - Are u intrested working on Android
+IN - yes
+
+HR - What is your weakness and strength
+IN - .............
+
+--------------------------------------------------------------
+Common 
+
+IN - There is any opening in your company
+HR - Yes, there are few opening in ....
+
+IN - What is the timing of office
+HR - 09:30 to 18:30
+
+IN - There is any bond
+HR - There is no bond in our office
+
+IN - Any on-site opportunity is present
+HR - we provide on-site opportunity also
+
+IN - Any dress code inside the campus
+HR - Mon to Thr will be formal and Fri & Sat causal
+
+IN - Saturday is working day?
+HR - Normally leave but depends on the project
+
+
+
+

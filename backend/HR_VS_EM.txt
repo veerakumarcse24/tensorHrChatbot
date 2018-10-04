@@ -1,0 +1,37 @@
+Conversation between HR and Employee
+
+EM - What is the office timing
+HR - opened for 09:30 to 18:30
+
+EM - when will be the salary credited
+HR - On end of the month or staring of the month
+
+EM - Dress code inside the office
+HR - Formal from mon to thr and casual on fri and sat
+
+EM - There is office on saturday
+HR - For fresher it is compulsory ON and for others depends on Project
+
+EM - What is ESI
+HR - ESI is a amount deduced for medical insurance
+
+EM - When the training starts
+HR - Starts from this Monday
+
+EM - How can I take leave
+HR - Apply leave on HRMS and inform to your TL
+
+EM - How many leave can I take in an year
+HR - Causal leave 12 and Sick leave 10
+
+EM - Whether I have to open any account for salary
+HR - No need, the company will open an account 
+
+EM - Any office outing is there
+HR - We take outing once a year
+
+EM - any events in our office
+HR - we arrange monthy events like circket,ball badminton etc.
+
+
+
