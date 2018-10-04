@@ -12,31 +12,24 @@
          "patterns": ["Thanks", "Thank you", "That's helpful"],
          "responses": ["Happy to help!", "Any time!", "My pleasure"]
         },
-        {"tag": "hours",
-         "patterns": ["What hours are you open?", "What are your hours?", "When are you open?" ],
-         "responses": ["We're open every day 9am-9pm", "Our hours are 9am-9pm every day"]
+        {"tag": "interview",
+         "patterns": ["There is any opening in your company?", "Any jobs available?", "Jobs in your company?" ],
+         "responses": ["Are you experienced or fresher"]
         },
-        {"tag": "mopeds",
-         "patterns": ["Which mopeds do you have?", "What kinds of mopeds are there?", "What do you rent?" ],
-         "responses": ["We rent Yamaha, Piaggio and Vespa mopeds", "We have Piaggio, Vespa and Yamaha mopeds"]
+        {"tag": "persontype",
+         "patterns": ["experienced", "i have one year of experience"],
+         "responses": ["what role did you play in your project and company", "what is the position in that company"],
+         "context_set": "experience"
         },
-        {"tag": "payments",
-         "patterns": ["Do you take credit cards?", "Do you accept Mastercard?", "Are you cash only?" ],
-         "responses": ["We accept VISA, Mastercard and AMEX", "We accept most major credit cards"]
+        {"tag": "personrole",
+         "patterns": ["i am a developer", "i am worked as a senior developer", "my role is junior developer", "am a tester"],
+         "responses": ["Okay. Now we have opening in AI as junior developer. Are U ok with that", "Okay .Currently Machine Learning only have opeings. Its okay for you"],
+         "context_filter": "experience"
         },
-        {"tag": "opentoday",
-         "patterns": ["Are you open today?", "When do you open today?", "What are your hours today?"],
-         "responses": ["We're open every day from 9am-9pm", "Our hours are 9am-9pm every day"]
-        },
-        {"tag": "rental",
-         "patterns": ["Can we rent a moped?", "I'd like to rent a moped", "How does this work?" ],
-         "responses": ["Are you looking to rent today or later this week?"],
-         "context_set": "rentalday"
-        },
-        {"tag": "today",
-         "patterns": ["today"],
-         "responses": ["For rentals today please call 1-800-MYMOPED", "Same-day rentals please call 1-800-MYMOPED"],
-         "context_filter": "rentalday"
+        {"tag": "personacceptence",
+         "patterns": ["yes", "okay", "accepted"],
+         "responses": ["We will call you soon.", "Send your resume to our HR."],
+         "context_filter": "experience"
         }
    ]
 }
