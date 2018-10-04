@@ -1,2 +1,2 @@
-model_checkpoint_path: "/hr_ai_bot/backend/ai_chatbot/model.tflearn"
-all_model_checkpoint_paths: "/hr_ai_bot/backend/ai_chatbot/model.tflearn"
+model_checkpoint_path: "H:\\chatbot\\tensorHrChatbot\\backend\\ai_chatbot\\model.tflearn"
+all_model_checkpoint_paths: "H:\\chatbot\\tensorHrChatbot\\backend\\ai_chatbot\\model.tflearn"

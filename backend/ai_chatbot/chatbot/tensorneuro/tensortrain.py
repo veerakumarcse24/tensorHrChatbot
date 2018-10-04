@@ -10,7 +10,7 @@ import numpy as np
 import tflearn
 import tensorflow as tf
 import random
-
+from chatbot.constant import *
 # import our chat-bot intents file
 import json
 
@@ -99,7 +99,7 @@ def trainInputData():
     # Define model and setup tensorboard
     model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
     # Start training (apply gradient descent algorithm)
-    model.fit(train_x, train_y, n_epoch=1000, batch_size=8, show_metric=True)
+    model.fit(train_x, train_y, n_epoch=epochCnt, batch_size=batch_sizeCnt, show_metric=True)
     model.save('model.tflearn')
 
     # save all of our data structures

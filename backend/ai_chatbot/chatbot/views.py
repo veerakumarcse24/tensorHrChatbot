@@ -39,7 +39,8 @@ from chatbot.serializers import (BookSerializer, PublisherSerializer)
 
 # import chats functions
 import nltk
-from nltk.corpus import names
+#nltk.download()
+#from nltk.corpus import names
 #from nltk.book import *
 import random
 from chatbot.controller import chats

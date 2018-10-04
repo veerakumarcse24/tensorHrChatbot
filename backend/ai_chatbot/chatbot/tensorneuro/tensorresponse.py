@@ -70,7 +70,9 @@ def classify(sentence):
     # generate probabilities from the model
     results = model.predict([bow(sentence, words)])[0]
     # filter out predictions below a threshold
+    #print(results)
     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
+    #print(results)
     # sort by strength of probability
     results.sort(key=lambda x: x[1], reverse=True)
     return_list = []
@@ -79,13 +81,17 @@ def classify(sentence):
     # return tuple of intent and probability
     return return_list
 
-def response(sentence, userID='123', show_details=False):
+def response(sentence, userID='123', show_details=True):
     results = classify(sentence)
     # if we have a classification then find the matching intent tag
+    print('came here')
+    #print(results)
     if results:
         # loop as long as there are matches to process
         while results:
+            #print("came 1")
             for i in intents['intents']:
+                #print("came 2")
                 # find a tag matching the first result
                 if i['tag'] == results[0][0]:
                     # set context for this intent if necessary
@@ -98,6 +104,7 @@ def response(sentence, userID='123', show_details=False):
                         (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
                         if show_details: print ('tag:', i['tag'])
                         # a random response from the intent
+                        print(i)
                         return (random.choice(i['responses']))
 
             results.pop(0)

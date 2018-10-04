@@ -16,10 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from ai_chatbot.views.views import hello
+#from ai_chatbot.views.views import hello
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^hello/$', hello),
+    #url(r'^hello/$', hello),
     url(r'^', include('chatbot.urls')),
 ]
