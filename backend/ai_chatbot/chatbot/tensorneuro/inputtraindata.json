@@ -1,6 +1,6 @@
 {"intents": [
         {"tag": "greeting",
-         "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day"],
+         "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day", "yes", "okay"],
          "responses": ["Hello, thanks for visiting", "Good to see you again", "Hi there, how can I help?"],
          "context_set": ""
         },
@@ -26,10 +26,25 @@
          "responses": ["Okay. Now we have opening in AI as junior developer. Are U ok with that", "Okay .Currently Machine Learning only have opeings. Its okay for you"],
          "context_filter": "experience"
         },
-        {"tag": "personacceptence",
-         "patterns": ["yes", "okay", "accepted"],
-         "responses": ["We will call you soon.", "Send your resume to our HR."],
+        {"tag": "salarydiscussion",
+         "patterns": ["yes", "okay", "i agree", "yeah okay"],
+         "responses": ["How much do u expert for your position in our company?", "what is your expectation?"],
          "context_filter": "experience"
+        },
+        {"tag": "confirmationdiscussion",
+         "patterns": ["0","1","2","3","4","5","6","7","8","9"],
+         "responses": ["Okay we will discuss and let you.", "Thank you we will call you soon."],
+         "context_filter": "experience"
+        },
+        {"tag": "fresherinterview",
+         "patterns": ["fresher", "i am fresher", "new to this field"],
+         "responses": ["Okay walkin is going can you come"],
+         "context_set": "fresher"
+        },
+        {"tag": "fresherendconversation",
+         "patterns": ["yes", "okay", "i agree", "yeah okay"],
+         "responses": ["We will call you soon.", "Send your resume to our HR."],
+         "context_filter": "fresher"
         }
    ]
 }
