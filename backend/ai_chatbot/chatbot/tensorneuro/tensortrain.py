@@ -3,7 +3,9 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 # things we need for NLP
 import nltk
 from nltk.stem.lancaster import LancasterStemmer
-stemmer = LancasterStemmer()
+from nltk.corpus import stopwords
+stemmer = nltk.stem.SnowballStemmer('english')
+stop_words = list(set(stopwords.words('english')))
 
 # things we need for Tensorflow
 import numpy as np
@@ -15,14 +17,14 @@ from chatbot.constant import *
 import json
 
 def trainInputData():
-    with open(os.path.join(BASE, "inputtraindata.json")) as json_data:
+    with open(os.path.join(BASE + '/trainingData', "formattedData.json")) as json_data:
         intents = json.load(json_data)
         #print(intents)
 
     words = []
     classes = []
     documents = []
-    ignore_words = ['?']
+    ignore_words = ['?'] + stop_words
     # loop through each sentence in our intents patterns
     for intent in intents['intents']:
         for pattern in intent['patterns']:

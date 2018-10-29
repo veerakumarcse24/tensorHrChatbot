@@ -54,7 +54,7 @@ from bs4 import BeautifulSoup
 
 #tensorflow trainingset
 
-from chatbot.tensorneuro import tensortrain, tensorresponse
+from chatbot.tensorneuro import tensortrain, tensorresponse, processingData
 
 class JSONResponse(HttpResponse):
     """
@@ -160,4 +160,12 @@ def traininputdata(request): #train data using tensorflow
         data = {'Status': 'failed', 'message': 'Invalid'}
     return JSONResponse(data)
 
+@csrf_exempt
+def processingdata(request): #train data using tensorflow
+    if request.method == "GET":
+        processingData.convertToJson()
+        data = {'Status': 'success', 'message': 'Raw data was formatted successfully.'}
+    else:
+        data = {'Status': 'failed', 'message': 'Invalid'}
+    return JSONResponse(data)
 

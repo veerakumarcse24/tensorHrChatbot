@@ -1,2 +1,2 @@
-epochCnt = 1000
-batch_sizeCnt = 8
+epochCnt = 500
+batch_sizeCnt = 1

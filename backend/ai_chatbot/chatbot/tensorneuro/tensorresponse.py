@@ -3,13 +3,14 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 # things we need for NLP
 import nltk
 from nltk.stem.lancaster import LancasterStemmer
-stemmer = LancasterStemmer()
+stemmer = nltk.stem.SnowballStemmer('english')
 
 # things we need for Tensorflow
 import numpy as np
 import tflearn
 import tensorflow as tf
 import random
+import sys
 
 # restore all of our data structures
 import pickle
@@ -19,9 +20,14 @@ classes = data['classes']
 train_x = data['train_x']
 train_y = data['train_y']
 
+print(words)
+
+print(classes)
+
+
 # import our chat-bot intents file
 import json
-with open(os.path.join(BASE, "inputtraindata.json")) as json_data:
+with open(os.path.join(BASE + '/trainingData', "formattedData.json")) as json_data:
     intents = json.load(json_data)
 
 # Build neural network
@@ -65,8 +71,11 @@ model.load('./model.tflearn')
 # create a data structure to hold user context
 context = {}
 
-ERROR_THRESHOLD = 0.25
+ERROR_THRESHOLD = 0.50
 def classify(sentence):
+    print('----')
+    print(sentence)
+    print(words)
     # generate probabilities from the model
     results = model.predict([bow(sentence, words)])[0]
     # filter out predictions below a threshold
@@ -105,7 +114,7 @@ def response(sentence, userID='123', show_details=True):
                         (userID in context and 'context_filter' in i and i['context_filter'] == context[userID]):
                         if show_details: print ('tag:', i['tag'])
                         # a random response from the intent
-                        #print(i)
+                        print(i)
                         return (random.choice(i['responses']))
 
             results.pop(0)
