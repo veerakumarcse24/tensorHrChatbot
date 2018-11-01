@@ -20,9 +20,9 @@ classes = data['classes']
 train_x = data['train_x']
 train_y = data['train_y']
 
-print(words)
+# print(words)
 
-print(classes)
+# print(classes)
 
 
 # import our chat-bot intents file
@@ -71,7 +71,7 @@ model.load('./model.tflearn')
 # create a data structure to hold user context
 context = {}
 
-ERROR_THRESHOLD = 0.50
+ERROR_THRESHOLD = 0.25
 def classify(sentence):
     print('----')
     print(sentence)
@@ -79,15 +79,18 @@ def classify(sentence):
     # generate probabilities from the model
     results = model.predict([bow(sentence, words)])[0]
     # filter out predictions below a threshold
-    #print(results)
+    print(results)
     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
-    #print(results)
+    print(results)
     # sort by strength of probability
     results.sort(key=lambda x: x[1], reverse=True)
     return_list = []
     for r in results:
         return_list.append((classes[r[0]], r[1]))
     # return tuple of intent and probability
+    print('********************')
+    print(return_list)
+    print('**********************')
     return return_list
 
 def response(sentence, userID='123', show_details=True):
