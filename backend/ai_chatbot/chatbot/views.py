@@ -120,18 +120,20 @@ def chat(request, format=None):
     if request.method == "GET":
         data = request.GET
         inputMSG = data.get('inputmsg')
-        if(len(inputMSG) > 2):
-            translateSource = textblobmethods.getSourceLanguage(inputMSG)
-            inputLanguage = str(translateSource)
-            if(inputLanguage != 'en'):
-                inputMSG = str(textblobmethods.translateLanguage(inputMSG, 'en'))
-        else:
-            inputLanguage = 'en'
+        # if(len(inputMSG) > 2):
+        #     translateSource = textblobmethods.getSourceLanguage(inputMSG)
+        #     inputLanguage = str(translateSource)
+        #     if(inputLanguage != 'en'):
+        #         inputMSG = str(textblobmethods.translateLanguage(inputMSG, 'en'))
+        # else:
+        #     inputLanguage = 'en'
 
         responseMsg = []
         chatResponse = tensorresponse.response(inputMSG)
-        if(chatResponse and inputLanguage != 'en'):
-            chatResponse = str(textblobmethods.translateLanguage(chatResponse, inputLanguage))
+        if(not chatResponse):
+            chatResponse = 'can you explain detaily'
+        # if(chatResponse and inputLanguage != 'en'):
+        #     chatResponse = str(textblobmethods.translateLanguage(chatResponse, inputLanguage))
         responseMsg.append(chatResponse)
         responseData = {"speechResponse":responseMsg}
         return JSONResponse(responseData)

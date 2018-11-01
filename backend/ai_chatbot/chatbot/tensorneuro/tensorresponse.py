@@ -71,7 +71,7 @@ model.load('./model.tflearn')
 # create a data structure to hold user context
 context = {}
 
-ERROR_THRESHOLD = 0.25
+ERROR_THRESHOLD = 0.85
 def classify(sentence):
     print('----')
     print(sentence)
