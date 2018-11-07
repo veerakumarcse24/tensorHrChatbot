@@ -35,8 +35,20 @@ def trainInputData():
             # add to documents in our corpus
             documents.append((w, intent['tag']))
             # add to our classes list
-            if intent['tag'] not in classes:
-                classes.append(intent['tag'])
+            # if intent['tag'] not in classes:
+            #     classes.append(intent['tag'])
+
+        for responsed in intent['responses']:
+            # tokenize each word in the sentence
+            for response_sentence in nltk.sent_tokenize(responsed):
+                w = nltk.word_tokenize(response_sentence)
+                # add to our words list
+                words.extend(w)
+                # add to documents in our corpus
+                documents.append((w, intent['tag']))
+        # add to our classes list
+        if intent['tag'] not in classes:
+            classes.append(intent['tag'])
 
     # print(classes)
     # print('--------------------')
@@ -93,8 +105,8 @@ def trainInputData():
     tf.reset_default_graph()
     # Build neural network
     net = tflearn.input_data(shape=[None, len(train_x[0])])
-    net = tflearn.fully_connected(net, 8)
-    net = tflearn.fully_connected(net, 8)
+    net = tflearn.fully_connected(net, 32)
+    net = tflearn.fully_connected(net, 32)
     net = tflearn.fully_connected(net, len(train_y[0]), activation='softmax')
     net = tflearn.regression(net)
 

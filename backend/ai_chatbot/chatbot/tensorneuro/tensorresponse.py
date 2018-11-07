@@ -32,8 +32,8 @@ with open(os.path.join(BASE + '/trainingData', "formattedData.json")) as json_da
 
 # Build neural network
 net = tflearn.input_data(shape=[None, len(train_x[0])])
-net = tflearn.fully_connected(net, 8)
-net = tflearn.fully_connected(net, 8)
+net = tflearn.fully_connected(net, 32)
+net = tflearn.fully_connected(net, 32)
 net = tflearn.fully_connected(net, len(train_y[0]), activation='softmax')
 net = tflearn.regression(net)
 
@@ -45,6 +45,8 @@ def clean_up_sentence(sentence):
     sentence_words = nltk.word_tokenize(sentence)
     # stem each word
     sentence_words = [stemmer.stem(word.lower()) for word in sentence_words]
+    print('#################')
+    print(sentence_words)
     return sentence_words
 
 # return bag of words array: 0 or 1 for each word in the bag that exists in the sentence
@@ -71,15 +73,27 @@ model.load('./model.tflearn')
 # create a data structure to hold user context
 context = {}
 
-ERROR_THRESHOLD = 0.85
+ERROR_THRESHOLD = 0.25
 def classify(sentence):
     print('----')
     print(sentence)
     print(words)
     # generate probabilities from the model
-    results = model.predict([bow(sentence, words)])[0]
+    input_bag_of_words = bow(sentence, words)
+    # print(input_bag_of_words)
+    # print('!!!!!!!!!!!!!!!!!!!!!!!')
+    if (input_bag_of_words == np.array([0]*len(words))).all():
+        return []
+    results = model.predict([input_bag_of_words])[0]
     # filter out predictions below a threshold
     print(results)
+    # results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
+    # for a,v in enumerate(results):
+    #     print('+++++++++++++++++++')
+    #     if v>ERROR_THRESHOLD:
+    #         print('test-')
+    #     print(v)
+    #     print('---------------------')
     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
     print(results)
     # sort by strength of probability
@@ -94,7 +108,11 @@ def classify(sentence):
     return return_list
 
 def response(sentence, userID='123', show_details=True):
-    results = classify(sentence)
+
+    if(not sentence or sentence == ''):
+        results = ["Thanks for visiting, Enter some text here."]
+    else:
+        results = classify(sentence)
     # if we have a classification then find the matching intent tag
     #print('came here')
     #print(results)
