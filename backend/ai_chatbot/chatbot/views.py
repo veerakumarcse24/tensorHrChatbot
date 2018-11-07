@@ -129,7 +129,10 @@ def chat(request, format=None):
         #     inputLanguage = 'en'
 
         responseMsg = []
-        chatResponse = tensorresponse.response(inputMSG)
+        if(not inputMSG or inputMSG == ''):
+            chatResponse = 'Thanks for visiting, Enter some text here.'
+        else:
+            chatResponse = tensorresponse.response(inputMSG)
         if(not chatResponse):
             chatResponse = 'can you explain detaily'
         # if(chatResponse and inputLanguage != 'en'):

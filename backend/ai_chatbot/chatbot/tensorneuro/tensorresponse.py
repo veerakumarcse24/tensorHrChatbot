@@ -109,10 +109,7 @@ def classify(sentence):
 
 def response(sentence, userID='123', show_details=True):
 
-    if(not sentence or sentence == ''):
-        results = ["Thanks for visiting, Enter some text here."]
-    else:
-        results = classify(sentence)
+    results = classify(sentence)
     # if we have a classification then find the matching intent tag
     #print('came here')
     #print(results)

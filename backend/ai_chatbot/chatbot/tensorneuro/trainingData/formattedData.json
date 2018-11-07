@@ -5,19 +5,19 @@
          "context_set": ""
         },
         {"tag": "INITIATION_1",
-         "patterns": ["What is the quality of people you employ?", "employ quality", "standard of employ", "grade, class or rank of employ"],
+         "patterns": ["What is the quality of people you employ?", "employ quality", "standard of employ", "grade, class or rank of employ", "employ level", "what is the special qualites of your employes"],
          "responses": ["Our resources are good at communicating with clients both verbal and written.  Most of our employees are Graduate/Post-Graduate Engineers with multiple years of industry experience, or are outstanding new engineers. Most people are from premier engineering institutes or have proven exceptional abilities."],
          "context_set": "initiation",
          "context_filter": "initiation"
         },
         {"tag": "INITIATION_2",
-         "patterns": ["What industries do you specialize in?", "any specialize industries", "which design of industries do you choose"],
+         "patterns": ["What industries do you specialize in?", "any specialize industries", "which design of industries do you choose", "which domain your industry sounds good"],
          "responses": ["We take pride in our ability to learn the fundamentals of virtually any industry or technology quickly. Some of the markets we have served include Internet/e-commerce, telecommunications, distance education/e-learning, real estate, financial services, healthcare services, manufacturing, retail, food service, consumer products, media and entertainment, artificial intelligence, enterprise software, insurance, energy, and networking."],
          "context_set": "initiation",
          "context_filter": "initiation"
         },
         {"tag": "INITIATION_3",
-         "patterns": ["How many development resources do you usually assign to a project?", "number of resources in a project" , "count of resources in a project", "resource count"],
+         "patterns": ["How many development resources do you usually assign to a project?", "number of resources in a project" , "count of resources in a project", "reserve resource count", "normally how much resources alloted for projects"],
          "responses": ["The number of resources employed for a project depends entirely upon the scale and complexity of the project. For example – we allocate two developers, one tester and a part-time UI designer for a small project. In addition, each project will have a Technical Architect, Business Analyst and Project Manager. We can increase the number of resources depending upon the customer/project requirements."],
          "context_set": "initiation",
          "context_filter": "initiation"
