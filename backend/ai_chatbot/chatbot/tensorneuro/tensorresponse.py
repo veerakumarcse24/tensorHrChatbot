@@ -4,6 +4,11 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 import nltk
 from nltk.stem.lancaster import LancasterStemmer
 stemmer = nltk.stem.SnowballStemmer('english')
+from nltk.corpus import stopwords
+
+stop_words = list(set(stopwords.words('english')))
+
+ignore_words = ['?'] + stop_words
 
 # things we need for Tensorflow
 import numpy as np
@@ -73,7 +78,7 @@ model.load('./model.tflearn')
 # create a data structure to hold user context
 context = {}
 
-ERROR_THRESHOLD = 0.25
+ERROR_THRESHOLD = 0.1
 def classify(sentence):
     print('----')
     print(sentence)
@@ -107,6 +112,28 @@ def classify(sentence):
     print('**********************')
     return return_list
 
+# finalize the results - verify any matches in sentences
+
+#sentence to unique words converter
+def sent_to_word(intent):
+    cwords = []
+    # loop through each sentence in our intents patterns
+    for sentence in intent:
+        for sent in nltk.sent_tokenize(sentence):
+            # tokenize each word in the sentence
+            w = nltk.word_tokenize(sent)
+            # add to our words list
+            cwords.extend(w)
+    cwords = list(set([stemmer.stem(w.lower()) for w in cwords if w not in ignore_words]))
+    return cwords
+
+#compare sentences if words exists
+def comparision_method(source, key_val):
+    for n in key_val:
+        if n in source:
+            return True
+    return False
+
 def response(sentence, userID='123', show_details=True):
 
     results = classify(sentence)
@@ -116,6 +143,9 @@ def response(sentence, userID='123', show_details=True):
     if results:
         # loop as long as there are matches to process
         while results:
+            print("&&&&&&&&&&&&&&&&&&&&&")
+            print(results)
+            print("&&&&&&&&&&&&&&&&&&&&&&&")
             #print("came 1")
             for i in intents['intents']:
                 #print("came 2")
@@ -133,7 +163,13 @@ def response(sentence, userID='123', show_details=True):
                         if show_details: print ('tag:', i['tag'])
                         # a random response from the intent
                         print(i)
-                        return (random.choice(i['responses']))
+                        responseTags = i['patterns'] + i['responses']
+                        sentenceList = []
+                        sentenceList.append(sentence)
+                        if(comparision_method(sent_to_word(responseTags), sent_to_word(sentenceList))):
+                            return (random.choice(i['responses']))
+                        else:
+                            return "can't predict exact words"
 
             results.pop(0)
 

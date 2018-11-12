@@ -125,7 +125,7 @@
          "context_filter": "development"
         },
         {"tag": "DEVELOPMENT_1",
-         "patterns": ["What are the coding standard followed?", "Can I define the coding standards we follow on your developers?"],
+         "patterns": ["What are the coding standard followed?", "Can I define the coding standards we follow on your developers?", "quality of coding"],
          "responses": ["We have our internal coding standards and unit testing guidelines. Also, in case if you need our team to redefine the coding standards, we can do it."],
          "context_set": "development",
          "context_filter": "development"
