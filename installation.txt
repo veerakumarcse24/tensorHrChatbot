@@ -34,6 +34,12 @@ Install deeplearning tools:
 pip install tensorflow
 pip install tflearn
 
+Sent mail in django:
+--------------------
+pip install django-sslserver
+pip install django-smtp-ssl
+python manage.py runsslserver 9123
+
 
 /* not need mysql */
 sudo apt install default-libmysqlclient-dev

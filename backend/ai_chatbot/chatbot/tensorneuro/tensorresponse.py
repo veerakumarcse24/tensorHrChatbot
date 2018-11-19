@@ -17,6 +17,9 @@ import tensorflow as tf
 import random
 import sys
 
+#for send mail
+from django.core.mail import EmailMessage
+
 # restore all of our data structures
 import pickle
 data = pickle.load( open( "training_data", "rb" ) )
@@ -78,11 +81,12 @@ model.load('./model.tflearn')
 # create a data structure to hold user context
 context = {}
 
-ERROR_THRESHOLD = 0.1
+ERROR_THRESHOLD = 0.50
 def classify(sentence):
     print('----')
     print(sentence)
-    print(words)
+    print("THRESHOLD:", ERROR_THRESHOLD)
+    # print(words)
     # generate probabilities from the model
     input_bag_of_words = bow(sentence, words)
     # print(input_bag_of_words)
@@ -91,25 +95,24 @@ def classify(sentence):
         return []
     results = model.predict([input_bag_of_words])[0]
     # filter out predictions below a threshold
-    print(results)
-    # results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
-    # for a,v in enumerate(results):
-    #     print('+++++++++++++++++++')
-    #     if v>ERROR_THRESHOLD:
-    #         print('test-')
-    #     print(v)
-    #     print('---------------------')
+    print_results = [[i,r] for i,r in enumerate(results)]
+    #print(print_results)
     results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
-    print(results)
+    #print(results)
     # sort by strength of probability
+    print_results.sort(key=lambda x: x[1], reverse=True)
     results.sort(key=lambda x: x[1], reverse=True)
+    # print('********************')
+    # print(results)
+    sample_list = []
     return_list = []
+    for r in print_results:
+        sample_list.append((classes[r[0]], r[1]))
+    print('********************')
+    print(sample_list)
     for r in results:
         return_list.append((classes[r[0]], r[1]))
     # return tuple of intent and probability
-    print('********************')
-    print(return_list)
-    print('**********************')
     return return_list
 
 # finalize the results - verify any matches in sentences
@@ -134,18 +137,33 @@ def comparision_method(source, key_val):
             return True
     return False
 
-def response(sentence, userID='123', show_details=True):
+#update user quries
+def update_user_quries(userMsg, userId):
+    queryFile = open(os.path.join(BASE + '/trainingData', "users_queries.txt"), "a+")
+    updateMSG = userId +' - '+ userMsg + '\r\n'
+    queryFile.write(updateMSG)
+    queryFile.close()
+    email = EmailMessage(
+        'users query',
+        'content_message',
+        'sender smtp gmail' +'<sender@gmail.com>',
+        ['janani@yopmail.com'],
+        headers = {'Reply-To': 'contact_email@gmail.com' }
+    )
+    email.send()
+
+def response(sentence, userID='user_1', show_details=True):
 
     results = classify(sentence)
     # if we have a classification then find the matching intent tag
-    #print('came here')
-    #print(results)
+    # print('came here')
+    # print(results)
     if results:
         # loop as long as there are matches to process
         while results:
-            print("&&&&&&&&&&&&&&&&&&&&&")
+            print("-----------------------")
             print(results)
-            print("&&&&&&&&&&&&&&&&&&&&&&&")
+            print("-----------------------")
             #print("came 1")
             for i in intents['intents']:
                 #print("came 2")
@@ -169,7 +187,8 @@ def response(sentence, userID='123', show_details=True):
                         if(comparision_method(sent_to_word(responseTags), sent_to_word(sentenceList))):
                             return (random.choice(i['responses']))
                         else:
-                            return "can't predict exact words"
+                            update_user_quries(sentence, userID)
+                            return "we will noted your quries and responses as soon as possible thank you"
 
             results.pop(0)
 

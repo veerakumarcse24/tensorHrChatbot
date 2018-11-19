@@ -130,7 +130,7 @@ def chat(request, format=None):
 
         responseMsg = []
         if(not inputMSG or inputMSG == ''):
-            chatResponse = 'Thanks for visiting, Enter some text here.'
+            chatResponse = 'Thanks for visiting, Enter some message here.'
         else:
             chatResponse = tensorresponse.response(inputMSG)
         if(not chatResponse):
