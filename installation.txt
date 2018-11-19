@@ -45,3 +45,7 @@ python manage.py runsslserver 9123
 sudo apt install default-libmysqlclient-dev
 pip install mysqlclient
 pip install mysql-connector 
+
+
+/* referal sites */
+https://www.liip.ch/en/blog/tensorflow-and-tflearn-or-can-deep-learning-predict-if-dicaprio-could-have-survived-the-titanic

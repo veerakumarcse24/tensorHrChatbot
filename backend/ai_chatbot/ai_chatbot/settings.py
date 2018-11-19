@@ -25,7 +25,7 @@ SECRET_KEY = 'az&we$o1m1im%m4r92@eybq)$kxt@$2#(07727*!*+$wpsb#20'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   ikyBackend: "http://localhost:8080/",
-  hrBackend: "http://localhost:8000/"
+  hrBackend: "http://192.168.0.73:9123/"
 };

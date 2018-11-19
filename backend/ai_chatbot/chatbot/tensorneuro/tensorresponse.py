@@ -40,13 +40,13 @@ with open(os.path.join(BASE + '/trainingData', "formattedData.json")) as json_da
 
 # Build neural network
 net = tflearn.input_data(shape=[None, len(train_x[0])])
-net = tflearn.fully_connected(net, 32)
-net = tflearn.fully_connected(net, 32)
+net = tflearn.fully_connected(net, 8)
+net = tflearn.fully_connected(net, 8)
 net = tflearn.fully_connected(net, len(train_y[0]), activation='softmax')
-net = tflearn.regression(net)
+net = tflearn.regression(net, metric='accuracy', loss='categorical_crossentropy')
 
 # Define model and setup tensorboard
-model = tflearn.DNN(net, tensorboard_dir='tflearn_logs')
+model = tflearn.DNN(net, tensorboard_dir='tflearn_logs', tensorboard_verbose=1)
 
 def clean_up_sentence(sentence):
     # tokenize the pattern
@@ -81,7 +81,7 @@ model.load('./model.tflearn')
 # create a data structure to hold user context
 context = {}
 
-ERROR_THRESHOLD = 0.50
+ERROR_THRESHOLD = 0.25
 def classify(sentence):
     print('----')
     print(sentence)
@@ -90,7 +90,6 @@ def classify(sentence):
     # generate probabilities from the model
     input_bag_of_words = bow(sentence, words)
     # print(input_bag_of_words)
-    # print('!!!!!!!!!!!!!!!!!!!!!!!')
     if (input_bag_of_words == np.array([0]*len(words))).all():
         return []
     results = model.predict([input_bag_of_words])[0]
@@ -143,14 +142,6 @@ def update_user_quries(userMsg, userId):
     updateMSG = userId +' - '+ userMsg + '\r\n'
     queryFile.write(updateMSG)
     queryFile.close()
-    email = EmailMessage(
-        'users query',
-        'content_message',
-        'sender smtp gmail' +'<sender@gmail.com>',
-        ['janani@yopmail.com'],
-        headers = {'Reply-To': 'contact_email@gmail.com' }
-    )
-    email.send()
 
 def response(sentence, userID='user_1', show_details=True):
 
