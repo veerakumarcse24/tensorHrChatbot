@@ -4,8 +4,8 @@
          "responses": ["Hello, thanks for visiting", "Good to see you again", "Hi there, how can I help?"],
          "context_set": ""
         },
-        {"tag": "INITIATION_1",
-         "patterns": ["What is the quality of people you employ?", "employ quality", "standard of employ", "grade, class or rank of employ", "employ level", "what is the special qualites of your employes"],
+        {"tag": "Quality_of_Staff",
+         "patterns": ["what kind of people you employ","What is the average experience of your employee","What is the quality of people you employ?", "employ quality", "standard of employ", "grade, class or rank of employ", "employ level", "what is the special qualites of your employes"],
          "responses": ["Our resources are good at communicating with clients both verbal and written.  Most of our employees are Graduate/Post-Graduate Engineers with multiple years of industry experience, or are outstanding new engineers. Most people are from premier engineering institutes or have proven exceptional abilities."],
          "context_set": "initiation",
          "context_filter": "initiation"
@@ -35,7 +35,7 @@
          "context_filter": "initiation"
         },
         {"tag": "INITIATION_6",
-         "patterns": ["Do you provide fixed or T&M based software development process?", "What makes the difference and which model suits me?","fixed or T&m based"],
+         "patterns": ["What is your pricing model","How will you charge for your services", "How you you charge for your work", "what is your hourly rate", "Do you provide fixed or T&M based software development process?", "What makes the difference and which model suits me?","fixed or T&m based"],
          "responses": ["We provide both fixed and T&M based software development process. For fixed development, we shall define and freeze scope with the resources, timeline and cost. This shall not change till the project ends and goes to go-live stage. Whereas in T&M based, we shall have to allocate the dedicated resources based on hourly rate till the completion of project. We can select the compactible model only based on the project requirement and size."],
          "context_set": "initiation",
          "context_filter": "initiation"

@@ -134,7 +134,7 @@ def chat(request, format=None):
         else:
             chatResponse = tensorresponse.response(inputMSG)
         if(not chatResponse):
-            chatResponse = 'can you explain detaily'
+            chatResponse = 'Can you please explain further'
         # if(chatResponse and inputLanguage != 'en'):
         #     chatResponse = str(textblobmethods.translateLanguage(chatResponse, inputLanguage))
         responseMsg.append(chatResponse)
