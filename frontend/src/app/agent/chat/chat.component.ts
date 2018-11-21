@@ -29,13 +29,20 @@ import { trigger,style,transition,animate,keyframes,query,stagger } from '@angul
 
 export class ChatComponent implements OnInit {
   chatInitial;
+  ratingInitial;
   chatCurrent;
+  rating;
+  ratingClick;
+  itemId;
+  ratingData;
+  username;
   
   messages: Message[] = [];
   prettyChatCurrent;
 
   chatForm: FormGroup;
   chatFormFields: any;
+  ratingFields: any;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   constructor(
@@ -60,6 +67,8 @@ export class ChatComponent implements OnInit {
       'input': 'init_conversation',
       'missingParameters': []
     };
+
+    this.username = '';
 
     this.chatService.converse(this.chatInitial)
       .then((c: any) => {
@@ -102,6 +111,24 @@ scrollToBottom(): void {
     c.date = new Date();
     this.chatCurrent = c;
     this.prettyChatCurrent = JSON ? JSON.stringify(c, null, '  ') : 'your browser doesnt support JSON so cant pretty print';
+  }
+
+  onClick(rating: number): void {
+    this.rating = rating;
+  }
+
+  submitRating() {
+    this.ratingData = {
+      'username' : this.username,
+      'rating' : this.rating
+    };
+    alert(this.username);
+    console.log(this.ratingData);
+    this.chatService.saveRatings(this.ratingData)
+      .then((c: any) => {
+        alert(1);
+        
+      });
   }
 
   send() {

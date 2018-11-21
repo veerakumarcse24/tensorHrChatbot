@@ -35,7 +35,8 @@ import json
 import base64
 
 #from chatbot.models import Publisher
-from chatbot.serializers import (BookSerializer, PublisherSerializer)
+from chatbot.models import StarRatings
+from chatbot.serializers import (BookSerializer, StarRatingSerializer)
 
 # import chats functions
 import nltk
@@ -67,27 +68,6 @@ class JSONResponse(HttpResponse):
         super(JSONResponse, self).__init__(content, **kwargs)
 
 #tz = pytz.timezone('UTC')
-
-@csrf_exempt
-def updateUser(request, format=None):
-    if request.method == "POST":
-        try:
-            data = request.POST
-            model = Publisher()
-            model.name = data.get('name')
-            model.address = data.get('address')
-            model.city = data.get('city')
-            model.state_province = data.get('state_province')
-            model.country = data.get('country')
-            model.website = data.get('website')
-            model.save()
-            result = {'Status': 200, 'message': 'Saved successfully.'}
-            return JSONResponse(result)
-        except Exception as e:
-            return HttpResponse(status=404)
-    else:
-        data = {'Status': 'failed', 'message': 'Invalid'}
-        return JSONResponse(data)
 
 # @csrf_exempt
 # def chat(request, format=None):   #http://localhost:8000/test1?name=veera
@@ -174,3 +154,15 @@ def processingdata(request): #train data using tensorflow
         data = {'Status': 'failed', 'message': 'Invalid'}
     return JSONResponse(data)
 
+@csrf_exempt
+def saveRatings(request): #save users ratings
+    if request.method == "POST":
+        data=json.loads(request.body)
+        model = StarRatings()
+        model.username = data.get('username')
+        model.rating = data.get('rating')
+        model.save()
+        data = {'Status': 'success', 'message': 'Ratings was saved successfully.'}
+    else:
+        data = {'Status': 'failed', 'message': 'Invalid'}
+    return JSONResponse(data)

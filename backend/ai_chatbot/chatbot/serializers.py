@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from datetime import datetime
 from chatbot.models import (
-    Publisher, Author, Book)
+    Publisher, Author, Book, StarRatings)
 
 class BookSerializer(serializers.ModelSerializer):
 
@@ -13,6 +13,18 @@ class PublisherSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Publisher
+        fields = '__all__'
+
+class PublisherSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Publisher
+        fields = '__all__'
+
+class StarRatingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = StarRatings
         fields = '__all__'
 
 # class UsersSerializer(serializers.ModelSerializer):

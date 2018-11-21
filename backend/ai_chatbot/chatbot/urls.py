@@ -3,14 +3,14 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from django.conf.urls import include, url
 from django.conf import settings
 
-from .views import updateUser, chat, getAuthor, traininputdata, processingdata
+from .views import chat, getAuthor, traininputdata, processingdata, saveRatings
 
 
 urlpatterns = [
-    url(r'^updateUser/', updateUser),
     url(r'^chat', chat, name="chatfunctions"),
     url(r'^trainData/', traininputdata),
     url(r'^processData/', processingdata),
+    url(r'^save_ratings/', saveRatings),
     #url(r'^getauthor/(?P<u_id>\d{1,3})/$', getAuthor),
     # url(r'^image_resize/$',users.image_resize),
 

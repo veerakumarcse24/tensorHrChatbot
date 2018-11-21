@@ -19,3 +19,7 @@ class Book(models.Model):
     authors = models.ManyToManyField(Author)
     publisher = models.ForeignKey(Publisher)
     publication_date = models.DateField()
+
+class StarRatings(models.Model):
+    username = models.CharField(max_length=100)
+    rating = models.CharField(max_length=2)
