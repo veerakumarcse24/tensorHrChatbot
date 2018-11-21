@@ -2,6 +2,7 @@ import { Component, OnInit, Input,AfterViewChecked, ElementRef, ViewChild } from
 import { ChatService } from '../../services/chat.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -36,6 +37,7 @@ export class ChatComponent implements OnInit {
   itemId;
   ratingData;
   username;
+  steps;
   
   messages: Message[] = [];
   prettyChatCurrent;
@@ -46,8 +48,7 @@ export class ChatComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   constructor(
-    public fb: FormBuilder,
-    public chatService: ChatService) {
+    public fb: FormBuilder, public chatService: ChatService, private coreService: UtilsService) {
 
     this.chatFormFields = {
       input: [''],
@@ -57,6 +58,8 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.clearRatings();
     this.chatInitial = {
       'currentNode': '',
       'complete': null, 'context': {},
@@ -68,8 +71,6 @@ export class ChatComponent implements OnInit {
       'missingParameters': []
     };
 
-    this.username = '';
-
     this.chatService.converse(this.chatInitial)
       .then((c: any) => {
         c.owner = 'chat';
@@ -79,12 +80,17 @@ export class ChatComponent implements OnInit {
       });
   }
 
+  clearRatings(){
+    this.steps = 0;
+    this.username = '';
+    this.rating = 0;
+  }
 
-scrollToBottom(): void {
+  scrollToBottom(): void {
     try {
         this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     } catch(err) { }                 
-}
+  }
 
   render_bubbles(c){
     c.speechResponse.forEach((item, index) => {
@@ -96,7 +102,7 @@ scrollToBottom(): void {
         },500)
       }
 
-  });
+    });
   }
   add_to_messages(message,author){
       let new_message = new Message(message,author)
@@ -122,12 +128,13 @@ scrollToBottom(): void {
       'username' : this.username,
       'rating' : this.rating
     };
-    alert(this.username);
-    console.log(this.ratingData);
+    this.coreService.displayLoader(true);
     this.chatService.saveRatings(this.ratingData)
       .then((c: any) => {
-        alert(1);
-        
+        this.coreService.displayLoader(false);
+        alert(c.message)
+        console.log(JSON.stringify(c));
+        this.clearRatings();
       });
   }
 

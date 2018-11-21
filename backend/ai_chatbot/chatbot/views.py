@@ -158,11 +158,14 @@ def processingdata(request): #train data using tensorflow
 def saveRatings(request): #save users ratings
     if request.method == "POST":
         data=json.loads(request.body)
-        model = StarRatings()
-        model.username = data.get('username')
+        try:
+            model = StarRatings.objects.get(username = data.get('username'))
+        except StarRatings.DoesNotExist:
+            model = StarRatings()
+            model.username = data.get('username')
         model.rating = data.get('rating')
         model.save()
-        data = {'Status': 'success', 'message': 'Ratings was saved successfully.'}
+        data = {'Status': 'success', 'message': 'Thank you for your ratings.'}
     else:
         data = {'Status': 'failed', 'message': 'Invalid'}
     return JSONResponse(data)
