@@ -143,6 +143,13 @@ def update_user_quries(userMsg, userId):
     queryFile.write(updateMSG)
     queryFile.close()
 
+#update user quries
+def chat_logs(userMsg, responseMsg, intentType, userId):
+    queryFile = open(os.path.join(BASE + '/trainingData', "chat_log.txt"), "a+")
+    updateMSG = userId +' - '+ 'Intent: ' + intentType + '\r\n' + 'Question: ' + userMsg + '\r\n' + 'Answer: ' + responseMsg + '\r\n' + '---'*25 + '\r\n'
+    queryFile.write(updateMSG)
+    queryFile.close()
+
 def response(sentence, userID='user_1', show_details=True):
 
     results = classify(sentence)
@@ -176,7 +183,9 @@ def response(sentence, userID='user_1', show_details=True):
                         sentenceList = []
                         sentenceList.append(sentence)
                         if(comparision_method(sent_to_word(responseTags), sent_to_word(sentenceList))):
-                            return (random.choice(i['responses']))
+                            randomResponseMsg = random.choice(i['responses'])
+                            chat_logs(sentence, randomResponseMsg, i['tag'], userID)
+                            return (randomResponseMsg)
                         else:
                             update_user_quries(sentence, userID)
                             return "we will noted your quries and responses as soon as possible thank you"

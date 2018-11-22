@@ -41,10 +41,14 @@ pip install django-smtp-ssl
 python manage.py runsslserver 9123
 
 
-/* not need mysql */
-sudo apt install default-libmysqlclient-dev
-pip install mysqlclient
-pip install mysql-connector 
+mysql installation:
+--------------------
+pip install mysqlclient==1.3.12
+
+Migrations:
+------------
+python manage.py makemigrations
+python manage.py migrate
 
 
 /* referal sites */

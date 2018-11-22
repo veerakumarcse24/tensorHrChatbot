@@ -1,0 +1,16 @@
+user_1 - Intent: INITIATION_3
+Question: How many development resources do you usually assign to a project?
+Answer: The number of resources employed for a project depends entirely upon the scale and complexity of the project. For example – we allocate two developers, one tester and a part-time UI designer for a small project. In addition, each project will have a Technical Architect, Business Analyst and Project Manager. We can increase the number of resources depending upon the customer/project requirements.
+---------------------------------------------------------------------------
+user_1 - Intent: INITIATION_8
+Question: How does payments work?
+Answer: Payments are linked to milestones and we will define that as part of the proposal/SOW (Statement of Work). There will be nominal kick off fee but the successive payments will be against accomplishment of milestones and you will pay for what you get. We accept payment through wire transfers and PayPal.
+---------------------------------------------------------------------------
+user_1 - Intent: INITIATION_8
+Question: How does payments work?
+Answer: Payments are linked to milestones and we will define that as part of the proposal/SOW (Statement of Work). There will be nominal kick off fee but the successive payments will be against accomplishment of milestones and you will pay for what you get. We accept payment through wire transfers and PayPal.
+---------------------------------------------------------------------------
+user_1 - Intent: GREETINGS
+Question: hi
+Answer: Hello, thanks for visiting
+---------------------------------------------------------------------------

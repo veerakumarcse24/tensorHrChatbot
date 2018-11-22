@@ -35,12 +35,12 @@
       <img src="/assets/images/AifullImg.jpeg" width="420px" height="92%" />
       <div>
           <div *ngIf="steps == 0">
-            <span>Rating this app</span> <button (click)='steps=1' mat-raised-button>Rating <mat-icon>star_half</mat-icon></button>
+            <button (click)='steps=1' style="padding: 13px 98px;font-size: 17px;" mat-raised-button>Click Here Rating <mat-icon>star_half</mat-icon><mat-icon>star_half</mat-icon><mat-icon>star_half</mat-icon></button>
           </div>
           <div *ngIf="steps == 1">
             <mat-input-container>
               <input #model="ngModel" [name]="username" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" type="text" matInput [(ngModel)]="username" placeholder="Email" autocomplete=off>
-            </mat-input-container><small *ngIf="model.invalid" style="color: red">Invalid mail</small> <button [disabled]="!username || model.invalid" (click)='steps=2' class="btn-info" mat-raised-button>Next <mat-icon>chevron_right</mat-icon></button>
+            </mat-input-container><small *ngIf="model.invalid" style="color: red">Invalid mail</small> <button *ngIf="!model.invalid" [disabled]="!username || model.invalid" (click)='steps=2' class="btn-info" style="padding: 13px 65px;font-size: 20px; margin-left: 28px;" mat-raised-button>Next <mat-icon>chevron_right</mat-icon></button>
           </div>
           <div *ngIf="steps == 2">
             <fieldset class="rating">
@@ -59,7 +59,7 @@
                 <input type="radio" [name]="inputName" value="1" [checked]="rating===1" />
                 <label title="Sucks big time" (click)='onClick(1)'>1 star</label>
             </fieldset>
-            <button mat-raised-button (click)='submitRating()'>Submit <mat-icon> email</mat-icon></button>
+            <button style="padding: 13px 54px;font-size: 17px;" mat-raised-button (click)='submitRating()'>Submit <mat-icon> email</mat-icon></button>
           </div>
       </div>
     </mat-card>

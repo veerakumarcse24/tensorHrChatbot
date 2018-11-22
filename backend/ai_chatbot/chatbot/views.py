@@ -169,3 +169,4 @@ def saveRatings(request): #save users ratings
     else:
         data = {'Status': 'failed', 'message': 'Invalid'}
     return JSONResponse(data)
+
