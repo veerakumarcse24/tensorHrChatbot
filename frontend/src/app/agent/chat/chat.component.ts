@@ -3,6 +3,9 @@ import { ChatService } from '../../services/chat.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { UtilsService } from '../../services/utils.service';
+import { Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -48,7 +51,7 @@ export class ChatComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   constructor(
-    public fb: FormBuilder, public chatService: ChatService, private coreService: UtilsService) {
+    public fb: FormBuilder, public chatService: ChatService, private coreService: UtilsService, private http: HttpClient, public snackBar: MatSnackBar) {
 
     this.chatFormFields = {
       input: [''],
@@ -60,22 +63,12 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
 
     this.clearRatings();
-    this.chatInitial = {
-      'currentNode': '',
-      'complete': null, 'context': {},
-      'parameters': [],
-      'extractedParameters': {},
-      'speechResponse': '',
-      'intent': {},
-      'input': 'init_conversation',
-      'missingParameters': []
-    };
+    this.chatInitial = 'hi';
 
     this.chatService.converse(this.chatInitial)
       .then((c: any) => {
         c.owner = 'chat';
         this.changeCurrent(c);
-
         this.render_bubbles(c)
       });
   }
@@ -132,8 +125,9 @@ export class ChatComponent implements OnInit {
     this.chatService.saveRatings(this.ratingData)
       .then((c: any) => {
         this.coreService.displayLoader(false);
-        alert(c.message)
-        console.log(JSON.stringify(c));
+        this.snackBar.open(c.message, 'Undo', {
+          duration: 3000
+        });
         this.clearRatings();
       });
   }
@@ -161,6 +155,14 @@ export class ChatComponent implements OnInit {
         
       });
 
+  }
+
+  downloadChat() {
+    this.chatService.downloadChat();
+  }
+
+  downloadLogs() {
+    this.chatService.downloadLogs();
   }
 
 }

@@ -136,3 +136,20 @@ $total-items: 5;
       opacity: 1;
     }
   }
+
+
+.example-header-image {
+  background-image: url('/assets/images/icone_admin.png');
+  background-size: cover;
+}
+
+.div_center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:100%;
+}
+
+.error_msg {
+  color: red;
+}

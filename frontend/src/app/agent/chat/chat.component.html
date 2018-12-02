@@ -3,64 +3,92 @@
   <mat-card fxFlex="50" fxLayout="column" >
     <div fxFlex="90" class="chat-container" #scrollMe>
       <div *ngFor="let message of messages"  [@listAnimation]="messages.length" >
-
         <div  *ngIf="message.author=='user'" class="chat-message">
           <div class="chat-message-content human">
             <span class="textright">{{message.content}}</span>
           </div>
         </div>
-
-          <div  *ngIf="message.author=='chat'" class="chat-message">
-            <div class="chat-message-content">
-              <span class="textleft" [innerHTML]="message.content"></span>
-            </div>
+        <div  *ngIf="message.author=='chat'" class="chat-message">
+          <div class="chat-message-content">
+            <span class="textleft" [innerHTML]="message.content"></span>
           </div>
-
-
+        </div>
       </div>
     </div>
     
-      <form [formGroup]="chatForm" *ngIf="chatForm" (submit)="send()" fxLayout="row" fxFlex="10" >
-        <mat-input-container fxFlex>
-          <input type="text" matInput formControlName="input" placeholder="Type message here ..." autocomplete=off>
-        </mat-input-container>
-      </form>
-    </mat-card>
+    <form [formGroup]="chatForm" *ngIf="chatForm" (submit)="send()" fxLayout="row" fxFlex="10" >
+      <mat-input-container fxFlex>
+        <input type="text" matInput formControlName="input" placeholder="Type message here ..." autocomplete=off>
+      </mat-input-container>
+    </form>
+  </mat-card>
     
-    <!-- <mat-card fxFlex="50" class="json-response">
-      <h3>POST /api/v1</h3>
-      <pre>{{prettyChatCurrent}}</pre>
-    </mat-card> -->
-    <mat-card fxFlex="50" class="json-response">
-      <img src="/assets/images/AifullImg.jpeg" width="420px" height="92%" />
-      <div>
-          <div *ngIf="steps == 0">
-            <button (click)='steps=1' style="padding: 13px 98px;font-size: 17px;" mat-raised-button>Click Here Rating <mat-icon>star_half</mat-icon><mat-icon>star_half</mat-icon><mat-icon>star_half</mat-icon></button>
-          </div>
-          <div *ngIf="steps == 1">
-            <mat-input-container>
-              <input #model="ngModel" [name]="username" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" type="text" matInput [(ngModel)]="username" placeholder="Email" autocomplete=off>
-            </mat-input-container><small *ngIf="model.invalid" style="color: red">Invalid mail</small> <button *ngIf="!model.invalid" [disabled]="!username || model.invalid" (click)='steps=2' class="btn-info" style="padding: 13px 65px;font-size: 20px; margin-left: 28px;" mat-raised-button>Next <mat-icon>chevron_right</mat-icon></button>
-          </div>
-          <div *ngIf="steps == 2">
-            <fieldset class="rating">
-                <input type="radio" [name]="inputName" value="5" [checked]="rating===5" />
-                <label title="Rocks!" (click)='onClick(5)'>5 stars</label>
-
-                <input type="radio" [name]="inputName" value="4" [checked]="rating===4" />
-                <label title="Pretty good" (click)='onClick(4)'>4 stars</label>
-
-                <input type="radio" [name]="inputName" value="3" [checked]="rating===3" />
-                <label title="Meh" (click)='onClick(3)'>3 stars</label>
-
-                <input type="radio" [name]="inputName" value="2" [checked]="rating===2" />
-                <label title="Kinda bad" (click)='onClick(2)'>2 stars</label>
-
-                <input type="radio" [name]="inputName" value="1" [checked]="rating===1" />
-                <label title="Sucks big time" (click)='onClick(1)'>1 star</label>
-            </fieldset>
-            <button style="padding: 13px 54px;font-size: 17px;" mat-raised-button (click)='submitRating()'>Submit <mat-icon> email</mat-icon></button>
-          </div>
+  <!-- <mat-card fxFlex="50" class="json-response">
+    <h3>POST /api/v1</h3>
+    <pre>{{prettyChatCurrent}}</pre>
+  </mat-card> -->
+  <mat-card  fxFlex="50" *ngIf="coreService.home == 'chat'">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>HR CHATBOT </mat-card-title>
+      <mat-card-subtitle>FAQ - optisol business solution</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="/assets/images/robotservice.jpeg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+        <b>Needs insights on our process, pricing and methodology?</b><br> <span class="div_center">We are here to clarify them for you.</span>
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <div *ngIf="steps == 0" class="div_center">
+        <button style="width: 75%" (click)='steps=1' mat-raised-button>Click Here Rating <mat-icon>star_half</mat-icon><mat-icon>star_half</mat-icon><mat-icon>star_half</mat-icon></button>
       </div>
-    </mat-card>
+      <div *ngIf="steps == 1" class="div_center">
+        <mat-input-container style="width:75%">
+          <input #model="ngModel" [name]="username" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" type="text" matInput [(ngModel)]="username" placeholder="Email" autocomplete=off>
+        </mat-input-container><small *ngIf="model.invalid" class="error_msg">Invalid mail</small> 
+        <button *ngIf="!model.invalid" [disabled]="!username || model.invalid" (click)='steps=2' style="25%" mat-raised-button>Next <mat-icon>chevron_right</mat-icon></button>
+      </div>
+      <div *ngIf="steps == 2" class="div_center">
+        <fieldset class="rating">
+            <input type="radio" [name]="inputName" value="5" [checked]="rating===5" />
+            <label title="Rocks!" (click)='onClick(5)'>5 stars</label>
+
+            <input type="radio" [name]="inputName" value="4" [checked]="rating===4" />
+            <label title="Pretty good" (click)='onClick(4)'>4 stars</label>
+
+            <input type="radio" [name]="inputName" value="3" [checked]="rating===3" />
+            <label title="Meh" (click)='onClick(3)'>3 stars</label>
+
+            <input type="radio" [name]="inputName" value="2" [checked]="rating===2" />
+            <label title="Kinda bad" (click)='onClick(2)'>2 stars</label>
+
+            <input type="radio" [name]="inputName" value="1" [checked]="rating===1" />
+            <label title="Sucks big time" (click)='onClick(1)'>1 star</label>
+        </fieldset>
+        <button style="width:40%; height: 60px;" mat-raised-button (click)='submitRating()'>Submit <mat-icon> email</mat-icon></button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card  fxFlex="50" *ngIf="coreService.home == 'download'">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>HR ADMIN </mat-card-title>
+      <mat-card-subtitle>optisol business solution</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="/assets/images/server_image.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+        Here you can download the entire chatlog using Download Chat Log button and Download Untrack Log button for untracked user quries are you can download. 
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="div_center">
+        <button style="width: 50%" (click)='downloadChat()' mat-raised-button>Download Chat Log  <mat-icon>cloud_download</mat-icon></button>
+        <button style="width: 50%" (click)='downloadLogs()' mat-raised-button>Download Untrack Log  <mat-icon>cloud_download</mat-icon></button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+
 </div> 

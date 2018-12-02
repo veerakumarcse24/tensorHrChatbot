@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class UtilsService {
+  home
 
   public status: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 

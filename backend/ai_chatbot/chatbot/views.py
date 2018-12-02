@@ -170,3 +170,32 @@ def saveRatings(request): #save users ratings
         data = {'Status': 'failed', 'message': 'Invalid'}
     return JSONResponse(data)
 
+@csrf_exempt
+def chatDownload(request): #download chat
+    if request.method == "GET":
+        BASE = os.path.dirname(os.path.abspath(__file__))
+        file_path = open(os.path.join(BASE + '/tensorneuro/trainingData', "rawData.txt"), "rb")
+        filename = "my-file.txt"
+        content = file_path
+        response = HttpResponse(content, content_type='text/plain')
+        response['Content-Disposition'] = 'attachment; filename=chatlog.txt'
+        response['Status'] = "success"
+        data = response
+    else:
+        data = ''
+    return data
+
+@csrf_exempt
+def logsDownload(request): #download chat
+    if request.method == "GET":
+        BASE = os.path.dirname(os.path.abspath(__file__))
+        file_path = open(os.path.join(BASE + '/tensorneuro/trainingData', "users_queries.txt"), "rb")
+        filename = "my-file.txt"
+        content = file_path
+        response = HttpResponse(content, content_type='text/plain')
+        response['Content-Disposition'] = 'attachment; filename=untrackLogs.txt'
+        response['Status'] = "success"
+        data = response
+    else:
+        data = ''
+    return data

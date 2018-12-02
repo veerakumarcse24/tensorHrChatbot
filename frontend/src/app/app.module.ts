@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { MatSnackBarModule } from "@angular/material";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 /* Project Components imports ends here */
 
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -28,7 +30,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
     BrowserAnimationsModule,
     CommonsModule.forRoot(),
     DashboardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
