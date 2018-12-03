@@ -50,6 +50,12 @@
         <button *ngIf="!model.invalid" [disabled]="!username || model.invalid" (click)='steps=2' style="25%" mat-raised-button>Next <mat-icon>chevron_right</mat-icon></button>
       </div>
       <div *ngIf="steps == 2" class="div_center">
+        <mat-form-field style="width:75%">
+          <textarea #model="ngModel" [name]="commant" [(ngModel)]="comments" matInput placeholder="Enter comment here"></textarea>
+        </mat-form-field> 
+        <button  (click)='steps=3' style="25%" mat-raised-button>Next <mat-icon>chevron_right</mat-icon></button>
+      </div>
+      <div *ngIf="steps == 3" class="div_center">
         <fieldset class="rating">
             <input type="radio" [name]="inputName" value="5" [checked]="rating===5" />
             <label title="Rocks!" (click)='onClick(5)'>5 stars</label>
@@ -89,6 +95,34 @@
         <button style="width: 50%" (click)='downloadLogs()' mat-raised-button>Download Untrack Log  <mat-icon>cloud_download</mat-icon></button>
       </div>
     </mat-card-actions>
+  </mat-card>
+
+  <mat-card  fxFlex="50" *ngIf="coreService.home == 'review'">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>HR ADMIN </mat-card-title>
+      <mat-card-subtitle>optisol business solution</mat-card-subtitle>
+      <button mat-mini-fab (click)='getUserReviews()'>
+      <mat-icon>refresh</mat-icon>
+    </button>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxFlex="100" class="chat-container" #scrollMe >
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let reviewData of user_reviews_data; let i = index">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <button mat-mini-fab color="primary">U{{i+1}}</button> {{reviewData.username}}
+              </mat-panel-title>
+              <mat-panel-description>
+                 <mat-icon class="white-icon" matListIcon *ngFor="let star of reviewData.ratingArr">star_half</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>{{reviewData.comments}}</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </mat-card-content>
   </mat-card>
 
 </div> 

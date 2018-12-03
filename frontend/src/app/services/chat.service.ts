@@ -11,6 +11,10 @@ export class ChatService {
     return this.http.get(environment.hrBackend + `chat?inputmsg=`+chatmsg).toPromise();
   }
 
+  getUserReviews() {
+    return this.http.get(environment.hrBackend + `get_user_ratings/`).toPromise();
+  }
+
   saveRatings(ratingData) {
     return this.http.post(environment.hrBackend + `save_ratings/`, ratingData).toPromise();
   }

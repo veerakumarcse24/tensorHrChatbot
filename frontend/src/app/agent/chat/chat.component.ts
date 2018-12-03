@@ -41,6 +41,8 @@ export class ChatComponent implements OnInit {
   ratingData;
   username;
   steps;
+  comments;
+  user_reviews_data;
   
   messages: Message[] = [];
   prettyChatCurrent;
@@ -77,6 +79,7 @@ export class ChatComponent implements OnInit {
     this.steps = 0;
     this.username = '';
     this.rating = 0;
+    this.comments = '';
   }
 
   scrollToBottom(): void {
@@ -119,7 +122,8 @@ export class ChatComponent implements OnInit {
   submitRating() {
     this.ratingData = {
       'username' : this.username,
-      'rating' : this.rating
+      'rating' : this.rating,
+      'comments': this.comments
     };
     this.coreService.displayLoader(true);
     this.chatService.saveRatings(this.ratingData)
@@ -163,6 +167,23 @@ export class ChatComponent implements OnInit {
 
   downloadLogs() {
     this.chatService.downloadLogs();
+  }
+
+  getUserReviews() {
+  this.coreService.displayLoader(true);
+    this.chatService.getUserReviews()
+        .then((c: any) => {
+          this.user_reviews_data = c.data;
+          if(this.user_reviews_data)
+          {
+            for(var i=0; i < this.user_reviews_data.length; i++)
+            {
+              this.user_reviews_data[i].ratingArr = new Array(parseInt(this.user_reviews_data[i].rating));
+              console.log(this.user_reviews_data[i]);
+            }
+          }
+          this.coreService.displayLoader(false);
+        });
   }
 
 }

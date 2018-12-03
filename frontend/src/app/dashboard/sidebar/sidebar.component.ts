@@ -26,4 +26,9 @@ export class SidebarComponent implements OnInit {
   	this.coreService.home = 'download';
   }
 
+  userReview_page()
+  {
+    this.coreService.home = 'review';
+  }
+
 }
