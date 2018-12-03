@@ -36,7 +36,7 @@ import base64
 
 #from chatbot.models import Publisher
 from chatbot.models import StarRatings
-from chatbot.serializers import (BookSerializer, StarRatingSerializer)
+from chatbot.serializers import (StarRatingSerializer)
 
 # import chats functions
 import nltk
@@ -126,17 +126,6 @@ def chat(request, format=None):
 
 
 @csrf_exempt
-def getAuthor(request, u_id):
-    if request.method == "GET":
-        model = Publisher.objects.filter(id=u_id)
-        serializer = PublisherSerializer(model, many=True)
-        #print (serializer)
-        data = serializer.data
-    else:
-        data = "this is post"
-    return JSONResponse(data)
-
-@csrf_exempt
 def traininputdata(request): #train data using tensorflow
     if request.method == "GET":
         tensortrain.trainInputData()
@@ -163,9 +152,20 @@ def saveRatings(request): #save users ratings
         except StarRatings.DoesNotExist:
             model = StarRatings()
             model.username = data.get('username')
+        model.comments = data.get('comments')
         model.rating = data.get('rating')
         model.save()
         data = {'Status': 'success', 'message': 'Thank you for your ratings.'}
+    else:
+        data = {'Status': 'failed', 'message': 'Invalid'}
+    return JSONResponse(data)
+
+@csrf_exempt
+def getRatings(request): #save users ratings
+    if request.method == "GET":
+        getAllRatings = StarRatings.objects.all()
+        serializer = StarRatingSerializer(getAllRatings, many=True)
+        data = {'Status': 'success', 'data': serializer.data}
     else:
         data = {'Status': 'failed', 'message': 'Invalid'}
     return JSONResponse(data)
