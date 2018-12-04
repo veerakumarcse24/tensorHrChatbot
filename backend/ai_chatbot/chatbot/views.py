@@ -211,3 +211,13 @@ def trainDataDownload(request): #download trainingdata
     else:
         data = ''
     return data
+
+@csrf_exempt
+def trainDataUpload(request): #download trainingdata
+    if request.method == "POST":
+        print("came1")
+        #data=request.body
+        data = {'Status': 'failed', 'message': 'Invalid'}
+    else:
+        data = {'Status': 'failed', 'message': 'Invalid'}
+    return JSONResponse(data)

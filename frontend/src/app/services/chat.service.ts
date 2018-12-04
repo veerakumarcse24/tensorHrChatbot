@@ -34,7 +34,7 @@ export class ChatService {
   uploadTrainData(fileData) {
     const formData: FormData = new FormData();
     formData.append('fileKey', fileData, fileData.name);
-    return this.http.post(environment.hrBackend + `save_ratings/`, formData).toPromise();
+    return this.http.post(environment.hrBackend + `upload_training_data/`, formData).toPromise();
   }
 
 }
