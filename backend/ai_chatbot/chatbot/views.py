@@ -212,12 +212,27 @@ def trainDataDownload(request): #download trainingdata
         data = ''
     return data
 
+def handle_uploaded_file(f,file_name):
+    BASE = os.path.dirname(os.path.abspath(__file__))
+    dir_name = os.path.join(BASE + '/tensorneuro/trainingData/')
+   # return dir_name;
+    with open(dir_name + file_name, 'wb+') as destination:
+            for chunk in f.chunks():
+                destination.write(chunk)
+            destination.close()
+    return HttpResponse(f)
+
 @csrf_exempt
-def trainDataUpload(request): #download trainingdata
+def trainDataUpload(request,format=None): #download trainingdata
     if request.method == "POST":
         print("came1")
-        #data=request.body
-        data = {'Status': 'failed', 'message': 'Invalid'}
+        f = request.FILES.get('file')
+        file_data=request.FILES.get('file')
+        filename,extension = os.path.splitext(file_data.name)
+        #final_file_name = filename+extension
+        final_file_name = 'formattedData.json'
+        res = handle_uploaded_file(request.FILES['file'],final_file_name)
+        data = {'Status': 'success', 'message': 'Training data uploaded successfully.'}
     else:
         data = {'Status': 'failed', 'message': 'Invalid'}
     return JSONResponse(data)

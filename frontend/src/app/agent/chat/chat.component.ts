@@ -181,9 +181,23 @@ export class ChatComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
+    this.coreService.displayLoader(true);
     this.chatService.uploadTrainData(this.fileToUpload)
       .then((c: any) => {
-        
+        this.coreService.displayLoader(false);
+        this.snackBar.open(c.message, 'Undo', {
+          duration: 3000
+        });
+      });
+  }
+
+  trainData() {
+    this.coreService.displayLoader(true);
+    this.chatService.trainData().then((c: any) => {
+        this.coreService.displayLoader(false);
+        this.snackBar.open(c.message, 'Undo', {
+          duration: 3000
+        });
       });
   }
 

@@ -33,8 +33,14 @@ export class ChatService {
 
   uploadTrainData(fileData) {
     const formData: FormData = new FormData();
-    formData.append('fileKey', fileData, fileData.name);
+    formData.append('file', fileData, fileData.name);
+    console.log(formData)
     return this.http.post(environment.hrBackend + `upload_training_data/`, formData).toPromise();
   }
+
+  trainData() {
+    return this.http.get(environment.hrBackend + `trainData/`).toPromise();
+  }
+
 
 }

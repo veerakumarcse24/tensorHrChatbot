@@ -131,6 +131,8 @@
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>HR ADMIN </mat-card-title>
       <mat-card-subtitle>optisol business solution</mat-card-subtitle>
+      <button mat-button color="primary" style="position: absolute;
+  right: 0px;margin-right: 10px;" (click)='trainData()'>Train Data</button>
     </mat-card-header>
     <img mat-card-image src="/assets/images/reading_robot.jpg" alt="Photo of a Shiba Inu">
     <mat-card-content>
@@ -142,8 +144,12 @@
       <div class="div_center">
         <button style="width: 50%" (click)='downloadTraingData()' mat-raised-button>Download Training Data <mat-icon>cloud_download</mat-icon></button>
         <!-- <button style="width: 50%" (click)='uploadTraingData()' mat-raised-button>Upload Training Data  <mat-icon>cloud_upload</mat-icon></button> -->
-        <input type="file"
-           id="file" accept=".json"
+        <!-- <input type="file"
+           id="id_docfile" accept=".json" name="docfile" 
+           (change)="handleFileInput($event.target.files)"> -->
+           <button style="width: 50%" mat-raised-button type="button" onclick="document.getElementById('id_docfile').click()"> Upload Training Data <mat-icon>cloud_upload</mat-icon>
+          </button>
+          <input id="id_docfile" type="file" style="display:none;" accept=".json" name="docfile" 
            (change)="handleFileInput($event.target.files)">
       </div>
     </mat-card-actions>
