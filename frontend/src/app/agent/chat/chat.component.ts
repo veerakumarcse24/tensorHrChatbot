@@ -43,6 +43,8 @@ export class ChatComponent implements OnInit {
   steps;
   comments;
   user_reviews_data;
+
+  fileToUpload: File = null;
   
   messages: Message[] = [];
   prettyChatCurrent;
@@ -167,6 +169,22 @@ export class ChatComponent implements OnInit {
 
   downloadLogs() {
     this.chatService.downloadLogs();
+  }
+
+  downloadTraingData() {
+    this.chatService.downloadTraingData();
+  }
+
+  uploadTraingData() {
+    alert(2);
+  }
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    this.chatService.uploadTrainData(this.fileToUpload)
+      .then((c: any) => {
+        
+      });
   }
 
   getUserReviews() {

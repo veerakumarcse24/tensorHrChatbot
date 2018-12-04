@@ -175,7 +175,6 @@ def chatDownload(request): #download chat
     if request.method == "GET":
         BASE = os.path.dirname(os.path.abspath(__file__))
         file_path = open(os.path.join(BASE + '/tensorneuro/trainingData', "rawData.txt"), "rb")
-        filename = "my-file.txt"
         content = file_path
         response = HttpResponse(content, content_type='text/plain')
         response['Content-Disposition'] = 'attachment; filename=chatlog.txt'
@@ -190,10 +189,23 @@ def logsDownload(request): #download chat
     if request.method == "GET":
         BASE = os.path.dirname(os.path.abspath(__file__))
         file_path = open(os.path.join(BASE + '/tensorneuro/trainingData', "users_queries.txt"), "rb")
-        filename = "my-file.txt"
         content = file_path
         response = HttpResponse(content, content_type='text/plain')
         response['Content-Disposition'] = 'attachment; filename=untrackLogs.txt'
+        response['Status'] = "success"
+        data = response
+    else:
+        data = ''
+    return data
+
+@csrf_exempt
+def trainDataDownload(request): #download trainingdata
+    if request.method == "GET":
+        BASE = os.path.dirname(os.path.abspath(__file__))
+        file_path = open(os.path.join(BASE + '/tensorneuro/trainingData', "formattedData.json"), "rb")
+        content = file_path
+        response = HttpResponse(content, content_type='application/json')
+        response['Content-Disposition'] = 'attachment; filename=trainData.json'
         response['Status'] = "success"
         data = response
     else:

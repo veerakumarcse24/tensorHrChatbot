@@ -102,7 +102,8 @@
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>HR ADMIN </mat-card-title>
       <mat-card-subtitle>optisol business solution</mat-card-subtitle>
-      <button mat-mini-fab (click)='getUserReviews()'>
+      <button class="md-icon-float" style="position: absolute;
+  right: 0px;margin-right: 10px;" mat-mini-fab (click)='getUserReviews()'>
       <mat-icon>refresh</mat-icon>
     </button>
     </mat-card-header>
@@ -112,7 +113,7 @@
           <mat-expansion-panel *ngFor="let reviewData of user_reviews_data; let i = index">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                <button mat-mini-fab color="primary">U{{i+1}}</button> {{reviewData.username}}
+                <button mat-mini-fab style="width: 12%;height: 80%" color="primary">U{{i+1}}</button> <span style="margin-left: 5px;white-space: nowrap;overflow: hidden;text-overflow:ellipsis;max-width: 70%;">{{reviewData.username}}</span>
               </mat-panel-title>
               <mat-panel-description>
                  <mat-icon class="white-icon" matListIcon *ngFor="let star of reviewData.ratingArr">star_half</mat-icon>
@@ -123,6 +124,29 @@
         </mat-accordion>
       </div>
     </mat-card-content>
+  </mat-card>
+
+  <mat-card  fxFlex="50" *ngIf="coreService.home == 'train'">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>HR ADMIN </mat-card-title>
+      <mat-card-subtitle>optisol business solution</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="/assets/images/reading_robot.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+        Here you can download the entire chatlog using Download Chat Log button and Download Untrack Log button for untracked user quries are you can download. 
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="div_center">
+        <button style="width: 50%" (click)='downloadTraingData()' mat-raised-button>Download Training Data <mat-icon>cloud_download</mat-icon></button>
+        <!-- <button style="width: 50%" (click)='uploadTraingData()' mat-raised-button>Upload Training Data  <mat-icon>cloud_upload</mat-icon></button> -->
+        <input type="file"
+           id="file" accept=".json"
+           (change)="handleFileInput($event.target.files)">
+      </div>
+    </mat-card-actions>
   </mat-card>
 
 </div> 

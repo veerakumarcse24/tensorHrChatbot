@@ -27,4 +27,14 @@ export class ChatService {
     window.location.href = environment.hrBackend + `download_logs/`;
   }
 
+  downloadTraingData() {
+    window.location.href = environment.hrBackend + `download_training_data/`;
+  }
+
+  uploadTrainData(fileData) {
+    const formData: FormData = new FormData();
+    formData.append('fileKey', fileData, fileData.name);
+    return this.http.post(environment.hrBackend + `save_ratings/`, formData).toPromise();
+  }
+
 }

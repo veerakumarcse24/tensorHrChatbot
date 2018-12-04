@@ -31,4 +31,9 @@ export class SidebarComponent implements OnInit {
     this.coreService.home = 'review';
   }
 
+  trainData()
+  {
+    this.coreService.home = 'train';
+  }
+
 }
