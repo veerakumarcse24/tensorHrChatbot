@@ -1,2 +1,6 @@
 /backend/chatEnv
 /chatEnv
+*.pyc 
+backend/ai_chatbot/tflearn_logs/
+backend/ai_chatbot/chatbot/tensorneuro/trainingData/chat_log.txt
+backend/ai_chatbot/chatbot/tensorneuro/trainingData/users_queries.txt
