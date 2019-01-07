@@ -24,13 +24,13 @@ from django.core.mail import send_mail
 from django.core.files import uploadedfile
 from django.core.files import uploadhandler
 from rest_framework import generics
-from datetime import datetime
+#from datetime import datetime
 #from hrmsv2.settings import MEDIA_URL
 from django.db.models import Q
 from django.db.models import Sum
 import dateutil.parser
 import os
-# import datetime
+import datetime
 import json
 import base64
 
@@ -54,7 +54,7 @@ from django.utils.crypto import get_random_string
 from bs4 import BeautifulSoup
 
 #tensorflow trainingset
-
+from chatbot import server_restart
 from chatbot.tensorneuro import tensortrain, tensorresponse, processingData
 
 class JSONResponse(HttpResponse):
@@ -124,6 +124,16 @@ def chat(request, format=None):
         data = "this is post"
     return JSONResponse(data)
 
+@csrf_exempt
+def restartserver(request): #restart server
+    if request.method == "GET":
+        BASE = os.path.dirname(os.path.abspath(__file__))
+        file_path = open(os.path.join(BASE , "server_restart.py"), "wb")
+        file_path.close()
+        data = {'Status': 'success', 'message': 'Server Restarted.'}
+    else:
+        data = {'Status': 'failed', 'message': 'Invalid'}
+    return JSONResponse(data)
 
 @csrf_exempt
 def traininputdata(request): #train data using tensorflow
@@ -174,7 +184,7 @@ def getRatings(request): #save users ratings
 def chatDownload(request): #download chat
     if request.method == "GET":
         BASE = os.path.dirname(os.path.abspath(__file__))
-        file_path = open(os.path.join(BASE + '/tensorneuro/trainingData', "rawData.txt"), "rb")
+        file_path = open(os.path.join(BASE + '/tensorneuro/trainingData', "chat_log.txt"), "rb")
         content = file_path
         response = HttpResponse(content, content_type='text/plain')
         response['Content-Disposition'] = 'attachment; filename=chatlog.txt'
@@ -221,6 +231,19 @@ def handle_uploaded_file(f,file_name):
                 destination.write(chunk)
             destination.close()
     return HttpResponse(f)
+
+@csrf_exempt
+def clearhistory(request): #clear chat history
+    if request.method == "GET":
+        BASE = os.path.dirname(os.path.abspath(__file__))
+        file_path1 = open(os.path.join(BASE + '/tensorneuro/trainingData/users_queries.txt'), "wb")
+        file_path1.close()
+        file_path2 = open(os.path.join(BASE + '/tensorneuro/trainingData/chat_log.txt'), "wb")
+        file_path2.close()
+        data = {'Status': 'success', 'message': 'Server Restarted.'}
+    else:
+        data = {'Status': 'failed', 'message': 'Invalid'}
+    return JSONResponse(data)
 
 @csrf_exempt
 def trainDataUpload(request,format=None): #download trainingdata

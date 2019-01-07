@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Response } from '@angular/http';
+import {Observable} from 'rxjs/Rx';
 @Injectable()
 export class ChatService {
 
@@ -11,8 +12,35 @@ export class ChatService {
     return this.http.get(environment.hrBackend + `chat?inputmsg=`+chatmsg).toPromise();
   }
 
+
+ //Get IP Adress using http://freegeoip.net/json/?callback
+getIpAddress() {
+            const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+            return this.http
+              .get('http://freegeoip.net/json/?callback',
+              { headers: headers })
+              .map(response => response || {})
+              .catch(this.handleError);
+          }
+
+  private handleError(error: HttpErrorResponse):
+      Observable<any> {
+        //Log error in the browser console
+        console.error('observable error: ', error);
+
+        return Observable.throw(error);
+    }
+
   getUserReviews() {
     return this.http.get(environment.hrBackend + `get_user_ratings/`).toPromise();
+  }
+
+  clearHistory() {
+    return this.http.get(environment.hrBackend + `clear_history/`).toPromise();
+  }
+
+  restartServer() {
+    return this.http.get(environment.hrBackend + `restart_server/`).toPromise();
   }
 
   saveRatings(ratingData) {

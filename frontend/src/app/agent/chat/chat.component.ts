@@ -42,6 +42,7 @@ export class ChatComponent implements OnInit {
   username;
   steps;
   comments;
+  clinetIP;
   user_reviews_data;
 
   fileToUpload: File = null;
@@ -52,6 +53,7 @@ export class ChatComponent implements OnInit {
   chatForm: FormGroup;
   chatFormFields: any;
   ratingFields: any;
+  clientIP: any;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   constructor(
@@ -75,6 +77,12 @@ export class ChatComponent implements OnInit {
         this.changeCurrent(c);
         this.render_bubbles(c)
       });
+  }
+
+  getIp() {
+    this.chatService.getIpAddress().subscribe(data => {
+      console.log(data);
+    });
   }
 
   clearRatings(){
@@ -159,8 +167,12 @@ export class ChatComponent implements OnInit {
           },1000
         )
         
+      }, 
+      reason => {
+        this.snackBar.open('Plz check server.', 'Undo', {
+          duration: 3000
+        });
       });
-
   }
 
   downloadChat() {
@@ -173,10 +185,6 @@ export class ChatComponent implements OnInit {
 
   downloadTraingData() {
     this.chatService.downloadTraingData();
-  }
-
-  uploadTraingData() {
-    alert(2);
   }
 
   handleFileInput(files: FileList) {
@@ -194,6 +202,17 @@ export class ChatComponent implements OnInit {
   trainData() {
     this.coreService.displayLoader(true);
     this.chatService.trainData().then((c: any) => {
+        this.coreService.displayLoader(false);
+        this.chatService.restartServer();
+        this.snackBar.open(c.message+' Plz wait sometime.', 'Undo', {
+          duration: 3000
+        });
+      });
+  }
+
+   clearHistory() {
+    this.coreService.displayLoader(true);
+    this.chatService.clearHistory().then((c: any) => {
         this.coreService.displayLoader(false);
         this.snackBar.open(c.message, 'Undo', {
           duration: 3000
